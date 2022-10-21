@@ -21,7 +21,7 @@ app.use('/admins', adminsRouter);
 app.use('/appointments', appointmentRouter);
 
 const port = process.env.PORT || 5000;
-let uri = "mongodb://localhost/Reservation";
+let uri = "mongodb+srv://xerxes2000a:73jimd7Gz7T42ogc@cluster0.iez3xip.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false }, (err) => {
     if (!err) {
