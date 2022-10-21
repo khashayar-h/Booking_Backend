@@ -73,7 +73,7 @@ router.route("/login").post(async (req, res) => {
 		// User found, return the token to the client side
 		const token = jwt.sign(
 			JSON.stringify(user),
-			process.env.KEY
+			"1234"
 		);
 
         const userId = user._id;

@@ -120,7 +120,7 @@ router.route("/login").post(async (req, res) => {
 		// Admin found, return the token to the client side
 		const token = jwt.sign(
 			JSON.stringify(admin),
-			process.env.KEY
+			"1234"
 		);
 
 		return res.status(200).json({ token: token.toString() });
