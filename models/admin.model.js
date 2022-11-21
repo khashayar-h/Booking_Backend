@@ -19,6 +19,15 @@ const dateSchedule = new Schema({
     slots : [slotSchema]
 })
 
+const repairDateSchedule = new Schema({
+    date : {
+        type: String
+    },
+    time : {
+        type: []
+    }
+})
+
 const adminSchema = new Schema({
     username: {
         type: String,
@@ -45,15 +54,18 @@ const adminSchema = new Schema({
         type: String,
         required: true
     },
-    dates : [dateSchedule]
+    dates : [dateSchedule],
+    repairDateSchedule : [repairDateSchedule]
 });
 
 const Admin = mongoose.model('Admin', adminSchema);
 const Slot = mongoose.model('Slot', slotSchema);
 const DateSchedule = mongoose.model('DateSchedule', dateSchedule);
+const RepairDateSchedule = mongoose.model('repairDateSche', repairDateSchedule);
 
 module.exports = {
     Admin,
     Slot,
-    DateSchedule
+    DateSchedule,
+    RepairDateSchedule
 };

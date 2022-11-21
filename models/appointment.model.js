@@ -45,6 +45,17 @@ const appointmentSchema = new Schema({
     slotTime : {
         type: String
     },
+    repairDateId : {
+        required: true,
+        type: String
+    },
+    repairDate : {
+        type: String
+    },
+    repairSlotId : {
+        required: true,
+        type: String
+    },
     adminName : {
         type : String
     },
@@ -56,12 +67,21 @@ const appointmentSchema = new Schema({
     },
     status : {
         type : String,
-        default : "در انتظار تایید"
-    },statusCode : {
+        default : "در انتظار بازدید"
+    },
+    statusCode : {
         type : Number,
         default : 0
     },
-    feedback : feedback
+    feedback : feedback, 
+    carModel : {
+        type : String,
+        required : true
+    },
+    description : {
+        type : String,
+        required : true
+    }
 });
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);

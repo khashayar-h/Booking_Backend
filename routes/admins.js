@@ -187,8 +187,12 @@ router.route("/book-slot").post((req, res) => {
 	const adminId = req.body.adminId; // Doctor's id 606460d2e0dd28cc76d9b0f3 
 	const slotId = req.body.slotId; // Id of that particular slot
 	const dateId = req.body.dateId; // Id of that particular date
+	const carModel = req.body.carModel; // Model of the car
+	const description = req.body.description; // Brief description of the car's problem
 
-	Admin.findOne({ _id: adminId }).then((admin) => {
+
+	Admin.findOne({ _id: adminId }).then
+	((admin) => {
 		const date = admin.dates.id(dateId);
 		const slot = date.slots.id(slotId);
 		slot.isBooked = true;
@@ -206,7 +210,9 @@ router.route("/book-slot").post((req, res) => {
 					adminName: admin.name,
 					adminEmail: admin.email,
 					userName: userName,
-					feedback: new Feedback()
+					feedback: new Feedback(),
+					carModel: carModel,
+					description: description
 				});
 
 				console.log(newAppointment);
