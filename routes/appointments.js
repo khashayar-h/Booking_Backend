@@ -127,7 +127,11 @@ router.route("/get-free-slots").post(async (req, res) => {
 		);
 
 		if (updatedAdmin) {
-			return res.status(200).json(updatedAdmin.repairDateSchedule[oldLength]);
+            for (const i of updatedAdmin.repairDateSchedule) {
+                if (i.date === date) {
+                    return res.status(200).json(i);
+                }
+            }
 		} else {
 			const err = { err: "an error occurred!" };
 			throw err;
@@ -157,10 +161,11 @@ router.route("/update-book-time").post(async (req, res) => {
 				message: "Admin not found in the database!",
 			});
 		}
-
+    let found = 0;
     for (const i of admin.repairDateSchedule) {
         // if in that date there were other appointments
         if (i.date === date) {
+            found = 1;
             const updatedAdmin = await Admin.findOneAndUpdate(
                 { _id: admin._id,
                   repairDateSchedule: { $elemMatch: { date: date } }
@@ -174,23 +179,21 @@ router.route("/update-book-time").post(async (req, res) => {
                 const err = { err: "an error occurred!" };
                 throw err;
             }  
-         }
-         // if there were no appointments in the date
-         else {
-            const updatedAdmin = await Admin.findOneAndUpdate(
-                { _id: admin._id },
-                { $push: new RepairDateSchedule({date: date, time: time}) },
-                { new: true }
-            );    
-            if (updatedAdmin) {
-                return res.status(200).json(updatedAdmin.dates[oldLength]);
-            } else {
-                const err = { err: "an error occurred!" };
-                throw err;
-            }  
-         }
-        count++;
+         }         
     }
+             // if there were no appointments in the date
+             console.log("arrived here");
+             const updatedAdmin = await Admin.findOneAndUpdate(
+                 { _id: admin._id },
+                 { $push: new RepairDateSchedule({date: date, time: time}) },
+                 { new: true }
+             );    
+             if (updatedAdmin) {
+                 return res.status(200).json(updatedAdmin.dates[oldLength]);
+             } else {
+                 const err = { err: "an error occurred!" };
+                 throw err;
+             } 
 }
 catch (err) {
     console.log(err);
