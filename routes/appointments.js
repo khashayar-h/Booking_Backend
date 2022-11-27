@@ -16,10 +16,10 @@ router.route('/update_status').put((req, res) => {
 
     switch(status){
         case "0":
-            status="در انتظار تایید";
+            status="آماده برای معاینه فنی";
             break;
         case "1":
-            status="تایید شده";
+            status="تخصیص نوبت";
             break;
         case "2":
             status="در حال انجام";
@@ -28,7 +28,7 @@ router.route('/update_status').put((req, res) => {
             status="تمام شده";
             break;
         default :
-            status="در انتظار تایید";
+            status="آماده برای معاینه فنی";
             break;
     }
 
