@@ -150,7 +150,9 @@ router.route("/update-book-time").post(async (req, res) => {
     //const appointmentId = req.body.appointmentId;
     const adminId = req.body.adminId; // Doctor's id 606460d2e0dd28cc76d9b0f3
     const date = req.body.date;
-    const time = req.body.time; 
+    const startTime = req.body.startTime; 
+    const endTime = req.body.endTime;
+    const time = {startTime : startTime, endTime : endTime};
 
     const admin = await Admin.findOne({ _id: adminId });
 
