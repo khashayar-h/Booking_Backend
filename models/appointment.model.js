@@ -56,6 +56,10 @@ const appointmentSchema = new Schema({
         required: true,
         type: String
     },
+    repairSlotTime : {
+        required: true,
+        type: Object
+    },
     adminName : {
         type : String
     },

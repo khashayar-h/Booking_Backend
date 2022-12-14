@@ -34,7 +34,7 @@ function createDate(date) {
 // To get all the admins
 // **ONLY FOR TESTING**
 router.route("/").get((req, res) => {
-	Admin.find()
+	Admin.find().populate('repairDateSchedule')
 		.then((admins) => {
 			res.json(admins);
 		})

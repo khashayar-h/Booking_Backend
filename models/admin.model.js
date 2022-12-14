@@ -19,13 +19,29 @@ const dateSchedule = new Schema({
     slots : [slotSchema]
 })
 
+const repairSlotSchema = new Schema({
+    time : {
+        type: Object
+    },
+    name : {
+        type: String
+    },
+    customerId:{
+        type: String
+    },
+    customerName:{
+        type: String
+    },
+    appointmentId : {
+        type: String
+    }
+})
+
 const repairDateSchedule = new Schema({
     date : {
         type: String
     },
-    time : {
-        type: []
-    }
+    slots: [repairSlotSchema]
 })
 
 const adminSchema = new Schema({
@@ -55,17 +71,19 @@ const adminSchema = new Schema({
         required: true
     },
     dates : [dateSchedule],
-    repairDateSchedule : [repairDateSchedule]
+    repairDateSchedule : [{ type: Schema.Types.ObjectId, ref: 'repairDateSchedule' }]
 });
 
 const Admin = mongoose.model('Admin', adminSchema);
 const Slot = mongoose.model('Slot', slotSchema);
 const DateSchedule = mongoose.model('DateSchedule', dateSchedule);
-const RepairDateSchedule = mongoose.model('repairDateSche', repairDateSchedule);
+const RepairDateSchedule = mongoose.model('repairDateSchedule', repairDateSchedule);
+const RepairSlot = mongoose.model('repairSlotSchema', repairSlotSchema);
 
 module.exports = {
     Admin,
     Slot,
     DateSchedule,
+    RepairSlot,
     RepairDateSchedule
 };
