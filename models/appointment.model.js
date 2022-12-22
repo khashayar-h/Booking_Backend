@@ -46,18 +46,15 @@ const appointmentSchema = new Schema({
         type: String
     },
     repairDateId : {
-        required: true,
         type: String
     },
     repairDate : {
         type: String
     },
     repairSlotId : {
-        required: true,
         type: String
     },
     repairSlotTime : {
-        required: true,
         type: Object
     },
     adminName : {
@@ -80,11 +77,9 @@ const appointmentSchema = new Schema({
     feedback : feedback, 
     carModel : {
         type : String,
-        required : true
     },
     description : {
         type : String,
-        required : true
     }
 });
 
