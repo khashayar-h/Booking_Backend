@@ -3,10 +3,8 @@ const appointmentImport = require("../models/appointment.model");
 const admins = require("../models/admin.model");
 const { Admin, RepairDateSchedule, RepairSlot } = admins;
 const { Appointment } = appointmentImport;
-const User = require('../models/user.model');
 var Kavenegar = require('kavenegar');
-const { findOne } = require('../models/user.model');
-const mongoose = require('mongoose');
+
 
 router.route('/update_status').put((req, res) => {
     let status = req.body.statusCode;
@@ -196,6 +194,9 @@ router.route("/update-book-time").post(async (req, res) => {
 			});
 		}
     let found = 0;
+    if(appointment.repairSlotId && appointment.repairSlotId != ""){
+        return res.status(400).json({"message" : "برای این نوبت قبلا زمان اختصاص داده شده است"})
+    }
     for(let i = 0; i < admin.repairDateSchedule.length; i++){
         const foundedRepairDateSchedule = await RepairDateSchedule.findOne({ _id: admin.repairDateSchedule[i]});
         if(foundedRepairDateSchedule.date == date){
@@ -220,13 +221,13 @@ router.route("/update-book-time").post(async (req, res) => {
                             {new: true}
                         );  
                         if (updatedAdmin && updatedAppointment) {
-                            return res.status(200).send("Appointment set successfully");
+                            return res.status(200).json({"message":"نوبت با موفقیت اختصاص یافت"});
                         } else {
                             const err = { err: "an error occurred!" };
                             throw err;
                         }  
                     }
-                    return res.status(403).send('Dates or Times have interference')         
+                    return res.status(403).json({'message': 'تداخل زمانی وجود دارد'})         
             }
         }
     
@@ -243,7 +244,7 @@ router.route("/delete-appointment-time").post(async (req, res) =>{
     const appointmentId = req.body.appointmentId;
     let appointment = await Appointment.findById(appointmentId);
     let repairSlotId = appointment.repairSlotId;
-    if(repairSlotId == ""){return res.status(400).send("it was deleted before !")}
+    if(repairSlotId == ""){return res.status(400).json({"message":"این نوبت قبلا حذف شده است !"})}
     let dateSchedule = await RepairDateSchedule.findById(appointment.repairDateId);
     let updatedDateSchedule;
     let updatedAppointment;
@@ -263,9 +264,9 @@ router.route("/delete-appointment-time").post(async (req, res) =>{
     }
 
     if(updatedAppointment && updatedDateSchedule){
-        return res.status(200).send("Appointment Repair Schedule deleted successfully")
+        return res.status(200).json({"message" : "نوبت با موفقیت حذف شد"})
     }
-    return res.status(400).send("error happened");
+    return res.status(400).json({"message":"error happened"});
 })
 
 function checkDates(startTime, endTime, date, reservedStartTime, reservedEndTime, reservedDate){
