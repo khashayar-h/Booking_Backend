@@ -43,12 +43,12 @@ router.route('/update_status').put((req, res) => {
                 //send sms
                 const message = " خودروی شما در وضعیت "+ status + " قرار گرفت ";
                 var api = Kavenegar.KavenegarApi({
-                    apikey: '7A2F4F79484B302F572B70735251634C326B525A7A794F4968796A63347A6E6976797458514B58377758673D'
+                    apikey: '317A4C4E43665979304354486D4B63686B4E415757443552735759525138326E394C49783559386D4D36773D'
                 });
                 api.Send({
                         message: message,
                         sender: "2000500666",
-                        receptor: "09930812012"
+                        receptor: "09031263133"
                     },
                     function(response, status) {
                         console.log(response);

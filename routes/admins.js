@@ -212,7 +212,11 @@ router.route("/book-slot").post((req, res) => {
 					userName: userName,
 					feedback: new Feedback(),
 					carModel: carModel,
-					description: description
+					description: description,
+					repairDateId:"",
+					repairDate:"",
+					repairSlotId:"",
+					repairSlotTime:""
 				});
 
 				console.log(newAppointment);
